@@ -1,7 +1,7 @@
 import setuptools
 from Utilities import __version__
 
-setup(
+setuptools.setup(
     name='SDM-Utilities',
     version= __version__,    
     description='Shared Utilities Definitions',
