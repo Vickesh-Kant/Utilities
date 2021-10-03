@@ -25,7 +25,6 @@ def data_pull(input_script, output_file):
 
     # assigning sql code to a variable
     sql_script1 = input_script
-    #'Dupixent Historical Transactions SQL Script.txt'
     sql_script_read1 = pathlib.Path(sql_script1).read_text()
 
     # make a connection
@@ -35,7 +34,6 @@ def data_pull(input_script, output_file):
                         password=my_password, driver='Teradata Database ODBC Driver 17.10',
                         authentication='LDAP') as session:
 
-        # must be connected to VPN if remotely running this script out of office
         # reading sql script, creating a session, saving table output from teradata to dataframe
         df1 = pd.read_sql(sql_script_read1, session)
         # saving dataframe to .csv file
