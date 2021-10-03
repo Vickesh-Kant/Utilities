@@ -4,7 +4,7 @@ import pathlib
 import win32com.client as win32 #pywin32
 import os
 
-__version__ = 'dev'
+__version__ = '0.0.1'
 
 # test def
 def test ():

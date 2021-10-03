@@ -5,7 +5,7 @@ setup(
     name='SDM-Utilities',
     version= __version__,    
     description='Shared Utilities Definitions',
-    url='https://github.com/Vickesh-Kant/SDM-Utilities.git',
+    url='git@github.com:Vickesh-Kant/SDM-Utilities.git',
     author='Vickesh Kant',
     author_email='vickesh.kant@gmail.com',
     license='BSD 2-clause',
