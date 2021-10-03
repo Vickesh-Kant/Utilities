@@ -12,7 +12,9 @@ setuptools.setup(
     packages= setuptools.find_packages(),
     install_requires=['pandas',
                       'teradata',
-                      'pathlib',                     
+                      'pathlib',
+                      'pyodbc',
+                      'pathlib2',                     
                       ],
 
     classifiers=[

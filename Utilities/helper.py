@@ -3,9 +3,10 @@ import teradata
 import pathlib
 import win32com.client as win32
 import os
+import pyodbc
 
 # Version Control
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
@@ -19,9 +20,9 @@ def store_key(df_sub):
     df_sub['STORE_KEY'] = df_sub['ENTERPRISE_CD'] + df_sub['STORE_CD'].astype('string')
 
 # definition to pull data from teradata based on sql script provided
-def data_pull(input_script, output_file):
+def teradata_data_pull(input_script, output_file, variable_file):
     # looking for credentials
-    with open('Teradata/Teradata Variables.txt', 'r') as f:
+    with open(variable_file, 'r') as f:
         username = f.readline().rstrip('\n')
         my_password = f.readline().rstrip('\n')
         host = f.readline().rstrip('\n')
@@ -62,3 +63,22 @@ def excel_refresh(excel_doc):
     excel.Quit()
     del book  # deleting object book for memory purposes
     del excel # deleting object excel for memory purposes
+    
+def kcdr_data_pull(input_script, output_file, variables_file):
+    # opening file to access parameters
+    with open(variables_file, 'r') as f:
+        username = f.readline().rstrip('\n')
+        password = f.readline().rstrip('\n')
+        server = f.readline().rstrip('\n')
+        database = f.readline().rstrip('\n')
+    
+    # creating a session
+    session = pyodbc.connect('DRIVER={SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
+
+    # assigning sql code to a variable
+    sql_script1 = input_script
+    sql_script_read1 = pathlib.Path(sql_script1).read_text()
+
+    # using pandas to read sql code and output to a csv file
+    df1 = pd.read_sql(sql_script_read1, session)
+    df1.to_csv(output_file, index = False)
