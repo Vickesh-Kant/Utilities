@@ -40,7 +40,6 @@ def data_pull(input_script, output_file):
         # reading sql script, creating a session, saving table output from teradata to dataframe
         df1 = pd.read_sql(sql_script_read1, session)
         # saving dataframe to .csv file
-        #"Dupixent Historical Transactions.csv"
         df1.to_csv(output_file, index = False)
         
 def excel_refresh(excel_doc):
@@ -57,7 +56,7 @@ def excel_refresh(excel_doc):
 
     # Refresh all sheets in workbook
     book.RefreshAll()
-    excel.CalculateUntilAsyncQueriesDone() #this will actually wait for the excel workbook to finish updating
+    excel.CalculateUntilAsyncQueriesDone() # this will actually wait for the excel workbook to finish updating
     book.Save()
     book.Close()
     excel.Quit()
