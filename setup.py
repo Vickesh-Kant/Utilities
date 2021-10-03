@@ -13,7 +13,7 @@ setuptools.setup(
     install_requires=['pandas',
                       'teradata',
                       'pathlib',
-                      'pywin32',
+                      'pywin32==227',
                       'os',                     
                       ],
 
