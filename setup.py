@@ -2,7 +2,7 @@ import setuptools
 from Utilities import __version__
 
 setuptools.setup(
-    name='SDM-Utilities',
+    name='Utilities',
     version= __version__,    
     description='Shared Utilities Definitions',
     url='git@github.com:Vickesh-Kant/SDM-Utilities.git',

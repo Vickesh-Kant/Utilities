@@ -1,2 +1,2 @@
-# SDM-Utilities
+# Utilities
 Shared Utilities Definitions

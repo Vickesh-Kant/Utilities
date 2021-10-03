@@ -1,14 +1,8 @@
 import pandas as pd
 import teradata
 import pathlib
-import win32com.client as win32 #pywin32
+import win32com.client as win32
 import os
-
-__version__ = '0.0.1'
-
-# test def
-def test ():
-    print('this is to test if this is working properly')
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
@@ -24,11 +18,10 @@ def store_key(df_sub):
 # definition to pull data from teradata based on sql script provided
 def data_pull(input_script, output_file):
     # looking for credentials
-    with open('Authentication/credentials.txt', 'r') as f:
+    with open('Teradata/Teradata Variables.txt', 'r') as f:
         username = f.readline().rstrip('\n')
         my_password = f.readline().rstrip('\n')
-
-    host = 'tdprod1cop1.ngco.com'
+        host = f.readline().rstrip('\n')
 
     # assigning sql code to a variable
     sql_script1 = input_script
