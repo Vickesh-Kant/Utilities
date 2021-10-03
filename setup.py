@@ -12,8 +12,7 @@ setuptools.setup(
     packages= setuptools.find_packages(),
     install_requires=['pandas',
                       'teradata',
-                      'pathlib',
-                      'os',                     
+                      'pathlib',                     
                       ],
 
     classifiers=[
