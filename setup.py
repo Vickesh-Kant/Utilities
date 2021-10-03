@@ -1,4 +1,4 @@
-from setuptools import setup
+import setuptools
 from Utilities import __version__
 
 setup(
@@ -9,7 +9,7 @@ setup(
     author='Vickesh Kant',
     author_email='vickesh.kant@gmail.com',
     license='BSD 2-clause',
-    packages=['SDM-Utilities'],
+    packages= setuptools.find_packages(),
     install_requires=['pandas',
                       'teradata',
                       'pathlib',
