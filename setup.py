@@ -1,5 +1,5 @@
 import setuptools
-from Utilities import __version__
+from Utilities.utilities import __version__
 
 setuptools.setup(
     name='Utilities',
