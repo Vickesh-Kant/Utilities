@@ -5,7 +5,7 @@ import win32com.client as win32
 import os
 
 # Version Control
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
