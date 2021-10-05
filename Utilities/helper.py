@@ -6,7 +6,7 @@ import os
 import pyodbc
 
 # Version Control
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
@@ -82,3 +82,46 @@ def kcdr_data_pull(input_script, output_file, variables_file):
     # using pandas to read sql code and output to a csv file
     df1 = pd.read_sql(sql_script_read1, session)
     df1.to_csv(output_file, index = False)
+    
+
+def teradata_ddl_pull (input_script, output_file, variable_file):
+    # creating an empty list to hold SQL code split by delimiter
+    sql_chunks = []
+
+    # creating a connection 
+    udaExec = teradata.UdaExec (appName = 'test', version = '1.0', logConsole = False)
+
+    # opening the SQL script
+    # using a for loop to split the script wherever semicolons are present until end of script
+    with open (input_script) as sq:
+        sql_script = sq.read()
+        for i in sql_script.split(';'):
+            sql_chunks.append(i)
+
+    # using a for loop through the length of the list to add the semi colon's back to the chunks of SQL code
+    for i in range(len(sql_chunks)):
+        sql_chunks[i]=sql_chunks[i] + ";"
+
+    # deleting empty element in the last slot of the list
+    print(sql_chunks[-1])    
+    del sql_chunks[-1]
+
+    # looking for variables
+    with open (variable_file, 'r') as f:
+        username = f.readline().rstrip('\n')
+        my_password = f.readline().rstrip('\n')
+        host = f.readline().rstrip('\n')
+
+    with udaExec.connect(method='odbc', system=host, username=username,
+                        password=my_password, driver='Teradata Database ODBC Driver 17.10',
+                        authentication = 'LDAP') as session:
+
+
+        for i in range(len(sql_chunks)):
+            if sql_chunks[i] != sql_chunks[-1]:
+                session.execute(sql_chunks[i])
+                print ('executed ' + str(i+1) + ' times')
+            else:
+                print(sql_chunks[i])
+                df1 = pd.read_sql(sql_chunks[i], session)
+                df1.to_csv(output_file, index = False)
