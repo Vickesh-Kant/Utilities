@@ -6,7 +6,7 @@ import os
 import pyodbc
 
 # Version Control
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
@@ -18,6 +18,10 @@ def check_nan(df_sub):
 # definition to create a store key column from dataframe
 def store_key(df_sub):
     df_sub['STORE_KEY'] = df_sub['ENTERPRISE_CD'] + df_sub['STORE_CD'].astype('string')
+
+# defintion to create new calculation column    
+def calc_margin(df_sub):
+    df_sub['MARGIN'] = df_sub['SUM_TX_TOT_AMT'] - df_sub['PRC_ACQ_COST_AMT ']
 
 # definition to pull data from teradata based on sql script provided
 def teradata_data_pull(input_script, output_file, variable_file):
