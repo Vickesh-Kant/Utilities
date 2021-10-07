@@ -145,6 +145,6 @@ def auto_disconnect():
     x4 = 964
     y4 = 542
 
-    pyautogui.rightclick(x, y)
+    pyautogui.rightClick(x, y)
     pyautogui.click(x3, y3)
     pyautogui.click(x4, y4)
