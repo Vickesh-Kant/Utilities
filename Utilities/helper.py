@@ -133,11 +133,8 @@ def auto_connect():
     pyautogui.FAILSAFE = True
     x = 1572
     y = 1060
-    x2 = 1633
-    y2 = 928
 
-    pyautogui.rightclick(x, y)
-    pyautogui.click(x2, y2)
+    pyautogui.doubleClick(x, y)
 
 def auto_disconnect():
     pyautogui.FAILSAFE = True
