@@ -6,7 +6,7 @@ import os
 import pyodbc
 
 # Version Control
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
@@ -48,10 +48,8 @@ def teradata_data_pull(input_script, output_file, variable_file):
         df1.to_csv(output_file, index = False)
         
 def excel_refresh(excel_doc):
-    # finding directory path to project folder
-    current_directory = os.getcwd()
-    # variable to hold excel document with system path
-    excelFile = current_directory + excel_doc
+    
+    excelFile = excel_doc
 
     # assigning excel application to variable, setting alerts and app to background
     excel = win32.DispatchEx('Excel.Application')
