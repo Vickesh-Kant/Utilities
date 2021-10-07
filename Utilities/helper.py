@@ -4,9 +4,10 @@ import pathlib
 import win32com.client as win32
 import os
 import pyodbc
+import pyautogui
 
 # Version Control
-__version__ = '0.0.7'
+__version__ = '0.0.8'
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
@@ -127,3 +128,26 @@ def teradata_ddl_pull (input_script, output_file, variable_file):
                 print(sql_chunks[i])
                 df1 = pd.read_sql(sql_chunks[i], session)
                 df1.to_csv(output_file, index = False)
+
+def auto_connect():
+    pyautogui.FAILSAFE = True
+    x = 1572
+    y = 1060
+    x2 = 1633
+    y2 = 928
+
+    pyautogui.rightclick(x, y)
+    pyautogui.click(x2, y2)
+
+def auto_disconnect():
+    pyautogui.FAILSAFE = True
+    x = 1572
+    y = 1060
+    x3 = 1638
+    y3 = 933
+    x4 = 964
+    y4 = 542
+
+    pyautogui.rightclick(x, y)
+    pyautogui.click(x3, y3)
+    pyautogui.click(x4, y4)

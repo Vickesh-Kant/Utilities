@@ -14,7 +14,8 @@ setuptools.setup(
                       'teradata',
                       'pathlib',
                       'pyodbc',
-                      'pathlib2',                     
+                      'pathlib2',
+                      'pyautogui',                     
                       ],
 
     classifiers=[
