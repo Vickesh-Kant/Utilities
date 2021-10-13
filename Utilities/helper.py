@@ -8,7 +8,7 @@ import pyodbc
 import pyautogui
 
 # Version Control
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
