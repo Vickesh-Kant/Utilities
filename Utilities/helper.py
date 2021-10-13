@@ -3,12 +3,11 @@ import numpy as np
 import teradata
 import pathlib
 import win32com.client as win32
-import os
 import pyodbc
 import pyautogui
 
 # Version Control
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
@@ -151,7 +150,7 @@ def auto_disconnect():
     pyautogui.click(x4, y4)
 
 def date_helper(date, return_value):
-    cal_workbook = os.path.abspath('Workbook/FY_Cal.xlsx')
+    cal_workbook = ('Utilities/Workbook/FY_Cal.xlsx')
     df1 = pd.read_excel(cal_workbook)
     df1['Date'] = pd.to_datetime(df1['Date'])
     date  = np.datetime64(date)
