@@ -15,7 +15,8 @@ setuptools.setup(
                       'pathlib',
                       'pyodbc',
                       'pathlib2',
-                      'pyautogui',                     
+                      'pyautogui',
+                      'numpy',                     
                       ],
 
     classifiers=[
