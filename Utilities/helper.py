@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import teradata
 import pathlib
 import win32com.client as win32
@@ -7,7 +8,7 @@ import pyodbc
 import pyautogui
 
 # Version Control
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
@@ -148,3 +149,31 @@ def auto_disconnect():
     pyautogui.rightClick(x, y)
     pyautogui.click(x3, y3)
     pyautogui.click(x4, y4)
+
+def date_helper(date, return_value):
+    cal_workbook = os.path.abspath('Workbook/FY_Cal.xlsx')
+    df1 = pd.read_excel(cal_workbook)
+    df1['Date'] = pd.to_datetime(df1['Date'])
+    date  = np.datetime64(date)
+    matching_row = df1.loc[df1['Date'] == date]
+    if return_value == 'fiscal_yr':
+        return (matching_row['Fiscal Year'].values)
+    elif return_value == 'fiscal_qtr':
+        return (matching_row['Quarter'].values)
+    elif return_value == 'month_num':
+        return (matching_row['Month No.'].values)
+    elif return_value == 'month_nm':
+        return (matching_row['Month Nm.'].values)
+    elif return_value == 'period_num':
+        return (matching_row['Period No.'].values)
+    elif return_value == 'period_id':
+        return (matching_row['Period ID'].values)
+    elif return_value == 'fiscal_wk':
+        return (matching_row['Fiscal Week'].values)
+    elif return_value == 'day':
+        return (matching_row['Day of Year'].values)
+    else:
+        return print('Invalid choice of return value')
+
+
+    
