@@ -8,7 +8,7 @@ import pyautogui
 import pkgutil
 
 # Version Control
-__version__ = '0.1.6'
+__version__ = '0.1.7'
 
 # static file path
 calendar = pkgutil.get_data(__name__, "Workbook/FY_Cal.xlsx")
