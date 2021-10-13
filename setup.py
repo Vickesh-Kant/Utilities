@@ -10,6 +10,9 @@ setuptools.setup(
     author_email='vickesh.kant@gmail.com',
     license='BSD 2-clause',
     packages= setuptools.find_packages(),
+    package_data = {
+        'Workbook': ['*']
+    },
     install_requires=['pandas',
                       'teradata',
                       'pathlib',
