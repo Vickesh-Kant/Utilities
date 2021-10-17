@@ -1,5 +1,7 @@
 import setuptools
-from Utilities.helper import __version__
+
+# Version Control
+__version__ = '0.1.8'
 
 setuptools.setup(
     name='Utilities',

@@ -3,12 +3,8 @@ import numpy as np
 import teradata
 import pathlib
 import win32com.client as win32
-import pyodbc
 import pyautogui
 import pkgutil
-
-# Version Control
-__version__ = '0.1.7'
 
 # static file path
 calendar = pkgutil.get_data(__name__, "Workbook/FY_Cal.xlsx")
@@ -69,27 +65,7 @@ def excel_refresh(excel_doc):
     book.Close()
     excel.Quit()
     del book  # deleting object book for memory purposes
-    del excel # deleting object excel for memory purposes
-    
-def kcdr_data_pull(input_script, output_file, variables_file):
-    # opening file to access parameters
-    with open(variables_file, 'r') as f:
-        username = f.readline().rstrip('\n')
-        password = f.readline().rstrip('\n')
-        server = f.readline().rstrip('\n')
-        database = f.readline().rstrip('\n')
-    
-    # creating a session
-    session = pyodbc.connect('DRIVER={SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
-
-    # assigning sql code to a variable
-    sql_script1 = input_script
-    sql_script_read1 = pathlib.Path(sql_script1).read_text()
-
-    # using pandas to read sql code and output to a csv file
-    df1 = pd.read_sql(sql_script_read1, session)
-    df1.to_csv(output_file, index = False)
-    
+    del excel # deleting object excel for memory purposes    
 
 def teradata_ddl_pull (input_script, output_file, variable_file):
     # creating an empty list to hold SQL code split by delimiter
