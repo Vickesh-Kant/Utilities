@@ -49,14 +49,15 @@ def td_ddl_query(input_script, output_file, variable_file):
 
     # creating a connection using teradatasql
     with teradatasql.connect(host=host, user=username, password=my_password, logmech = 'LDAP') as connect:
-        for i in range(len(sql_chunks)):
-            if sql_chunks[i] != sql_chunks[-1]:
-                connect.execute(sql_chunks[i])
-                print ('executed ' + str(i+1) + ' times')
-            else:
-                print(sql_chunks[i])
-                df1 = pd.read_sql(sql_chunks[i], connect)
-                df1.to_csv(output_file, index = False)
+        with connect.cursor() as cur:
+            for i in range(len(sql_chunks)):
+                if sql_chunks[i] != sql_chunks[-1]:
+                    cur.execute(sql_chunks[i])
+                    print ('executed ' + str(i+1) + ' times')
+                else:
+                    print(sql_chunks[i])
+                    df1 = pd.read_sql(sql_chunks[i], connect)
+                    df1.to_csv(output_file, index = False)
 
 # function to connect to kcdr server and output result to csv
 def kcdr_data_pull(input_script, output_file, variables_file):
