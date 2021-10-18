@@ -1,7 +1,7 @@
 import setuptools
 
 # Version Control
-__version__ = '0.1.11'
+__version__ = '0.1.12'
 
 setuptools.setup(
     name='Utilities',
@@ -19,7 +19,8 @@ setuptools.setup(
                       'pyodbc',
                       'pathlib2',
                       'pyautogui',
-                      'numpy',                     
+                      'numpy',
+                      'teradatasql',                     
                       ],
 
     classifiers=[

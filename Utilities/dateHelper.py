@@ -31,16 +31,16 @@ def date_helper(date, return_value):
     else:
         return print('Invalid choice of return value')
 
-def ytd_period_list():
-    # variable to hold today's date
-    today = date.today()
+def ytd_period_list(date):
+    
+    date  = np.datetime64(date)
     
     # list variables to hold period ID's
     list_current_yr = []
 
     # calling date helper to find out what the fiscal period number and fiscal year is based on today's date
-    current_period = date_helper(today, 'period_num')
-    current_year = date_helper(today, 'fiscal_yr')
+    current_period = date_helper(date, 'period_num')
+    current_year = date_helper(date, 'fiscal_yr')
     current_year = int(current_year)
 
     # finding the prior period based on today's date
@@ -60,17 +60,17 @@ def ytd_period_list():
     # returning list of YTD periods minus the current period currently in
     return tuple(list_current_yr)
 
-def prior_year_plus_ytd_period_list():
-    # variable to hold today's date
-    today = date.today()
+def prior_year_plus_ytd_period_list(date): 
+    
+    date  = np.datetime64(date)
     
     # list variables to hold period ID's
     list_current_yr = []
     list_prior_yr = []
 
     # calling date helper to find out what the fiscal period number and fiscal year is based on today's date
-    current_period = date_helper(today, 'period_num')
-    current_year = date_helper(today, 'fiscal_yr')
+    current_period = date_helper(date, 'period_num')
+    current_year = date_helper(date, 'fiscal_yr')
     current_year = int(current_year)
     prior_year = current_year - 1
 
@@ -95,17 +95,16 @@ def prior_year_plus_ytd_period_list():
     # returning list of YTD periods minus the current period currently in plus all periods prior year
     return tuple(list_prior_yr + list_current_yr)
 
-def rolling_13_period_list():
-    # variable to hold today's date
-    today = date.today()
+def rolling_13_period_list(date):
+    date  = np.datetime64(date)
     
     # list variables to hold period ID's
     list_current_yr = []
     list_prior_yr = []
 
     # calling date helper to find out what the fiscal period number and fiscal year is based on today's date
-    current_period = date_helper(today, 'period_num')
-    current_year = date_helper(today, 'fiscal_yr')
+    current_period = date_helper(date, 'period_num')
+    current_year = date_helper(date, 'fiscal_yr')
     current_year = int(current_year)
     prior_year = current_year - 1
 
@@ -126,7 +125,7 @@ def rolling_13_period_list():
         period_id = str(current_year) + str(i+1).zfill(2)
         list_current_yr.append(period_id)
         
-    for i in range(13, (periods_from_prior_yr - 1), -1):
+    for i in range(13, (13 - periods_from_prior_yr - 1), -1):
         period_id = str(prior_year) + str(i+1).zfill(2)
         list_prior_yr.append(period_id)
     

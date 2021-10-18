@@ -4,6 +4,7 @@ import teradata
 import pathlib
 import win32com.client as win32
 import pyautogui
+import os
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
@@ -20,10 +21,15 @@ def store_key(df_sub):
 def calc_margin(df_sub):
     df_sub['MARGIN'] = df_sub['SUM_TX_TOT_AMT'] - df_sub['PRC_ACQ_COST_AMT']
 
+def generate_modified_sql_script(sql_script_path):
+	if os.path.isfile(sql_script_path) == True:
+     	 os.remove(sql_script_path)
 
+	with open(sql_script_path, "w+") as f:
+			f.writelines(sql_script_path)
         
 def excel_refresh(excel_doc):
-    
+    # variable to hold excel file
     excelFile = excel_doc
 
     # assigning excel application to variable, setting alerts and app to background
