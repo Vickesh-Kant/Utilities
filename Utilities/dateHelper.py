@@ -126,7 +126,7 @@ def rolling_13_period_list(date):
         list_current_yr.append(period_id)
         
     for i in range(13, (13 - periods_from_prior_yr - 1), -1):
-        period_id = str(prior_year) + str(i+1).zfill(2)
+        period_id = str(prior_year) + str(i).zfill(2)
         list_prior_yr.append(period_id)
     
     # returning list of YTD periods minus the current period currently in plus all periods prior year
