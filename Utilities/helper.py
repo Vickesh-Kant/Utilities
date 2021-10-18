@@ -21,12 +21,12 @@ def store_key(df_sub):
 def calc_margin(df_sub):
     df_sub['MARGIN'] = df_sub['SUM_TX_TOT_AMT'] - df_sub['PRC_ACQ_COST_AMT']
 
-def generate_modified_sql_script(sql_script_path):
+def generate_modified_sql_script(sql_code, sql_script_path):
 	if os.path.isfile(sql_script_path) == True:
      	 os.remove(sql_script_path)
 
 	with open(sql_script_path, "w+") as f:
-			f.writelines(sql_script_path)
+			f.writelines(sql_code)
         
 def excel_refresh(excel_doc):
     # variable to hold excel file
