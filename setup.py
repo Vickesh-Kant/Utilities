@@ -1,7 +1,7 @@
 import setuptools
 
 # Version Control
-__version__ = '0.1.10'
+__version__ = '0.1.11'
 
 setuptools.setup(
     name='Utilities',

@@ -4,10 +4,6 @@ import teradata
 import pathlib
 import win32com.client as win32
 import pyautogui
-import pkgutil
-
-# static file path
-calendar = pkgutil.get_data(__name__, "Workbook/FY_Cal.xlsx")
 
 # definition to check for NaN and return columns containing them
 def check_nan(df_sub):
@@ -24,29 +20,7 @@ def store_key(df_sub):
 def calc_margin(df_sub):
     df_sub['MARGIN'] = df_sub['SUM_TX_TOT_AMT'] - df_sub['PRC_ACQ_COST_AMT']
 
-# definition to pull data from teradata based on sql script provided
-def teradata_data_pull(input_script, output_file, variable_file):
-    # looking for credentials
-    with open(variable_file, 'r') as f:
-        username = f.readline().rstrip('\n')
-        my_password = f.readline().rstrip('\n')
-        host = f.readline().rstrip('\n')
 
-    # assigning sql code to a variable
-    sql_script1 = input_script
-    sql_script_read1 = pathlib.Path(sql_script1).read_text()
-
-    # make a connection
-    udaExec = teradata.UdaExec (appName='test', version='1.0', logConsole = False)
-
-    with udaExec.connect(method='odbc', system=host, username=username,
-                        password=my_password, driver='Teradata Database ODBC Driver 17.10',
-                        authentication='LDAP') as session:
-
-        # reading sql script, creating a session, saving table output from teradata to dataframe
-        df1 = pd.read_sql(sql_script_read1, session)
-        # saving dataframe to .csv file
-        df1.to_csv(output_file, index = False)
         
 def excel_refresh(excel_doc):
     
@@ -67,47 +41,6 @@ def excel_refresh(excel_doc):
     del book  # deleting object book for memory purposes
     del excel # deleting object excel for memory purposes    
 
-def teradata_ddl_pull (input_script, output_file, variable_file):
-    # creating an empty list to hold SQL code split by delimiter
-    sql_chunks = []
-
-    # creating a connection 
-    udaExec = teradata.UdaExec (appName = 'test', version = '1.0', logConsole = False)
-
-    # opening the SQL script
-    # using a for loop to split the script wherever semicolons are present until end of script
-    with open (input_script) as sq:
-        sql_script = sq.read()
-        for i in sql_script.split(';'):
-            sql_chunks.append(i)
-
-    # using a for loop through the length of the list to add the semi colon's back to the chunks of SQL code
-    for i in range(len(sql_chunks)):
-        sql_chunks[i]=sql_chunks[i] + ";"
-
-    # deleting empty element in the last slot of the list
-    print(sql_chunks[-1])    
-    del sql_chunks[-1]
-
-    # looking for variables
-    with open (variable_file, 'r') as f:
-        username = f.readline().rstrip('\n')
-        my_password = f.readline().rstrip('\n')
-        host = f.readline().rstrip('\n')
-
-    with udaExec.connect(method='odbc', system=host, username=username,
-                        password=my_password, driver='Teradata Database ODBC Driver 17.10',
-                        authentication = 'LDAP') as session:
-
-
-        for i in range(len(sql_chunks)):
-            if sql_chunks[i] != sql_chunks[-1]:
-                session.execute(sql_chunks[i])
-                print ('executed ' + str(i+1) + ' times')
-            else:
-                print(sql_chunks[i])
-                df1 = pd.read_sql(sql_chunks[i], session)
-                df1.to_csv(output_file, index = False)
 
 def auto_connect():
     pyautogui.FAILSAFE = True
@@ -129,30 +62,4 @@ def auto_disconnect():
     pyautogui.click(x3, y3)
     pyautogui.click(x4, y4)
 
-def date_helper(date, return_value):
-    cal_workbook = (calendar)
-    df1 = pd.read_excel(cal_workbook)
-    df1['Date'] = pd.to_datetime(df1['Date'])
-    date  = np.datetime64(date)
-    matching_row = df1.loc[df1['Date'] == date]
-    if return_value == 'fiscal_yr':
-        return (matching_row['Fiscal Year'].values)
-    elif return_value == 'fiscal_qtr':
-        return (matching_row['Quarter'].values)
-    elif return_value == 'month_num':
-        return (matching_row['Month No.'].values)
-    elif return_value == 'month_nm':
-        return (matching_row['Month Nm.'].values)
-    elif return_value == 'period_num':
-        return (matching_row['Period No.'].values)
-    elif return_value == 'period_id':
-        return (matching_row['Period ID'].values)
-    elif return_value == 'fiscal_wk':
-        return (matching_row['Fiscal Week'].values)
-    elif return_value == 'day':
-        return (matching_row['Day of Year'].values)
-    else:
-        return print('Invalid choice of return value')
 
-
-    
