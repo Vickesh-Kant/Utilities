@@ -144,7 +144,7 @@ def rolling_13_month_list(date):
     list_prior_yr = []
 
     # calling date helper to find out what the fiscal period number and fiscal year is based on today's date
-    current_period = date_helper(date, 'month_id')
+    current_period = date_helper(date, 'month_num')
     current_year = date_helper(date, 'year')
     current_year = int(current_year)
     prior_year = current_year - 1
