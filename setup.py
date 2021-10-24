@@ -1,7 +1,7 @@
 import setuptools
 
 # Version Control
-__version__ = '0.1.20'
+__version__ = '0.1.21'
 
 setuptools.setup(
     name='Utilities',
@@ -15,7 +15,6 @@ setuptools.setup(
     include_package_data = True,
     install_requires=['pandas',
                       'teradata',
-                      'pathlib',
                       'pyodbc',
                       'pathlib2',
                       'pyautogui',
