@@ -20,7 +20,7 @@ def td_simple_query(input_script, output_file, variable_file):
     # creating a connection using teradatasql
     with teradatasql.connect(host=host, user=username, password=my_password, logmech = 'LDAP') as connect:
         df1 = pd.read_sql(sql_script_read1, connect)
-        df1.to_csv(output_file, index = False)
+        df1.to_csv(output_file, index = False, encoding='utf-8-sig')
 
 # driverless ddl query function to output .csv result file    
 def td_ddl_query(input_script, output_file, variable_file):
@@ -78,7 +78,7 @@ def kcdr_query(input_script, output_file, variables_file):
 
     # using pandas to read sql code and output to a csv file
     df1 = pd.read_sql(sql_script_read1, session)
-    df1.to_csv(output_file, index = False)
+    df1.to_csv(output_file, index = False, encoding='utf-8-sig')
 
 # definition to pull data from teradata based on sql script provided
 def teradata_driver_query(input_script, output_file, variable_file):
@@ -102,7 +102,7 @@ def teradata_driver_query(input_script, output_file, variable_file):
         # reading sql script, creating a session, saving table output from teradata to dataframe
         df1 = pd.read_sql(sql_script_read1, session)
         # saving dataframe to .csv file
-        df1.to_csv(output_file, index = False)
+        df1.to_csv(output_file, index = False, encoding='utf-8-sig')
 
 # definition to pull data from teradata based on sql script provided which contains multiple ddl statements       
 def teradata_driver_ddl_query(input_script, output_file, variable_file):
@@ -145,4 +145,4 @@ def teradata_driver_ddl_query(input_script, output_file, variable_file):
             else:
                 print(sql_chunks[i])
                 df1 = pd.read_sql(sql_chunks[i], session)
-                df1.to_csv(output_file, index = False)
+                df1.to_csv(output_file, index = False, encoding='utf-8-sig')
