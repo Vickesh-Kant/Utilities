@@ -15,7 +15,6 @@ setuptools.setup(
     include_package_data = True,
     install_requires=['pandas',
                       'teradata',
-                      'pathlib',
                       'pyodbc',
                       'pathlib2',
                       'pyautogui',
